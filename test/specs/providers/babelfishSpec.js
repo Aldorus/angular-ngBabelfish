@@ -178,7 +178,38 @@ describe('Provider@babelfish:  please translate them all', function() {
     });
 });
 
-describe('Provider@babelfish: Loading a wrong file', function(){
+describe('Provider@babelfish: Loading a wrong file (with debug mode)', function(){
+
+    beforeEach(module('ui.router'));
+
+    beforeEach(module('ngBabelfish', function (babelfishProvider) {
+        babelfishProvider.init({
+            debug: false
+        });
+    }));
+
+    beforeEach(inject(function ($injector) {
+        spyOn(window,'alert');
+        $httpBackend = $injector.get("$httpBackend");
+        $httpBackend.when("GET", urlI18n)
+          .respond(400, answer);
+    }));
+
+    beforeEach(function() {
+        $httpBackend.expectGET(urlI18n);
+        $httpBackend.flush();
+    });
+
+    afterEach(function () {
+        $httpBackend.verifyNoOutstandingExpectation();
+    });
+
+    it('should pop an alert', function() {
+        expect(window.alert).toHaveBeenCalledWith('Cannot load i18n translation file');
+    });
+});
+
+describe('Provider@babelfish: Loading a wrong file (no debug mode)', function(){
 
     beforeEach(module('ui.router'));
 
@@ -200,10 +231,6 @@ describe('Provider@babelfish: Loading a wrong file', function(){
 
     afterEach(function () {
         $httpBackend.verifyNoOutstandingExpectation();
-    });
-
-    it('should pop an alert', function() {
-        expect(window.alert).toHaveBeenCalledWith('Cannot load i18n translation file');
     });
 });
 

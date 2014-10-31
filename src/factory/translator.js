@@ -275,8 +275,10 @@ module.exports = ['$rootScope', '$http', function ($rootScope, $http) {
 
                 return $http.get(url)
                     .error(function() {
-                        alert("Cannot load i18n translation file");
-                    })
+                        if(config.debug) {
+                            alert("Cannot load i18n translation file");
+                        }
+                   })
                     .success(function (data) {
 
                         if(config.lazy) {
@@ -321,7 +323,9 @@ module.exports = ['$rootScope', '$http', function ($rootScope, $http) {
 
             return $http.get(url)
                 .error(function() {
-                    alert("Cannot load i18n translation file");
+                    if(config.debug) {
+                        alert("Cannot load i18n translation file");
+                    }
                 })
                 .success(function (data) {
 

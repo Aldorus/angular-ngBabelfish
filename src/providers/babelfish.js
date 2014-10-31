@@ -20,7 +20,8 @@ module.exports = function() {
         lazy: false,
         urls: [],
         current: "",
-        log: true
+        log: true,
+        debug: false // Disabled dev mode by default
     };
 
     /**

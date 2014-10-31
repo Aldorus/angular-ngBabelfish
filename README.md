@@ -472,6 +472,16 @@ Ex: `babelfish.updateState('test');`
 }));
 ```
 
+> You can add ngBabelfish alert when babelfish doesn't find the translation file (for dev environement)
+
+```JavaScript
+ beforeEach(module('ngBabelfish', function (babelfishProvider) {
+    babelfishProvider.languages({
+        debug: true
+    });
+}));
+```
+
 ### test
 
 ```sh
